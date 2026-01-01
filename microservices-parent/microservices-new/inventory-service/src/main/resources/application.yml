@@ -1,0 +1,47 @@
+##making server.port as 0 -> spring boot will assign some random port to this application
+## (here we are doing coz we don't want to hardcode port, so we can use multiple instances of this application
+server:
+  port: 0
+
+#server:
+#  port: 8082
+
+spring:
+  application:
+    name: inventory-service
+
+  datasource:
+    url: jdbc:mySql://localhost:3306/inventory-service
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: wiley
+
+  jpa:
+    hibernate:
+      ddl-auto: 'create-drop'
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.MySQLDialect
+
+  ##need to keep it is create as of now coz if it was update then it would add up details on top of existing one every time we run this application (check InventoryServiceApplication Class)
+
+
+#        ddl-auto: update
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+#      defaultZone: http://eureka:password@localhost:8761/eureka
+
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+

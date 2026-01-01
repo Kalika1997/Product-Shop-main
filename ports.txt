@@ -1,0 +1,6 @@
+
+PORT			:	APPLICATION/TOOL/USED_BY
+
+9090			:	api-gateway  
+8761			:	eureka 
+8181			:	keycloack from docker

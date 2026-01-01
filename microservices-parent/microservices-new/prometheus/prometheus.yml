@@ -1,0 +1,34 @@
+#global properties
+global:
+#  scrape updates from project via actuators every 10sec
+  scrape_interval:     10s
+  evaluation_interval: 10s
+
+scrape_configs:
+  - job_name: 'product_service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['product-service:9090']     #9090 is the api-gw port
+        labels:
+          application: 'Product Service Application'
+  - job_name: 'order_service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+#      - targets: ['order-service:8081']      #in case i had made docker container with this name
+      - targets: ['localhost:8081']
+        labels:
+          application: 'Order Service Application'
+  - job_name: 'inventory_service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['inventory-service:9090']
+        labels:
+          application: 'Inventory Service Application'
+  - job_name: 'notification_service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['notification-service:9090']
+        labels:
+          application: 'Notification Service Application'
+
+#          CAN ADD OTHER SERVICE IF REQUIRED
